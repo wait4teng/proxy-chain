@@ -41,6 +41,9 @@ export default class HandlerForward extends HandlerBase {
                 continue;
             } else if (isInvalidHeader(headerName, headerValue)) {
                 continue;
+            } else if (headerName.startsWith('x-no-forward')) {
+                console.debug('stripped header: ' + headerName + ':' + headerValue);
+                continue;
             } else if (/^host$/i.test(headerName)) {
                 // If Host header was used multiple times, only consider the first one.
                 // This is to prevent "TypeError: hostHeader.startsWith is not a function at calculateServerName (_http_agent.js:240:20)"
